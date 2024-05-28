@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Ver Usuarios</title>
+  <link rel="stylesheet" href="/css/styles.css"> <!-- Asegúrate de que la ruta al CSS es correcta -->
+</head>
+<body>
+  <h1>Usuarios Registrados</h1>
+  <ul id="listaUsuarios">
+    <!-- Los usuarios se cargarán aquí -->
+  </ul>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('/api/usuarios')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        const lista = document.getElementById('listaUsuarios');
+        if (data.length === 0) {
+          lista.innerHTML = '<li>No hay usuarios registrados.</li>';
+        } else {
+          data.forEach(usuario => {
+            const item = document.createElement('li');
+
+            const divCedula = document.createElement('div');
+            divCedula.innerHTML = `<strong>Cedula:</strong> ${usuario.cedula}`;
+            item.appendChild(divCedula);
+            item.appendChild(document.createElement('hr')); // Separador
+  
+            // Div para Celular
+            const divCelular = document.createElement('div');
+            divCelular.innerHTML = `<strong>Celular:</strong> ${usuario.celular}`;
+            item.appendChild(divCelular);
+            item.appendChild(document.createElement('hr')); // Separador
+  
+            // Div para Ciudad
+            const divCiudad = document.createElement('div');
+            divCiudad.innerHTML = `<strong>Ciudad:</strong> ${usuario.ciudad}`;
+            item.appendChild(divCiudad);
+            item.appendChild(document.createElement('hr')); // Separador
+  
+            // Div para Dirección
+            const divDireccion = document.createElement('div');
+            divDireccion.innerHTML = `<strong>Dirección:</strong> ${usuario.direccion}`;
+            item.appendChild(divDireccion);
+            item.appendChild(document.createElement('hr')); // Separador
+  
+            // Div para Cart Data
+            const divCartData = document.createElement('div');
+            divCartData.innerHTML = `<strong>Cart Data:</strong> ${usuario.cartData}`;
+            item.appendChild(divCartData);
+            item.appendChild(document.createElement('hr')); // Separador
+  
+            // Div para Precio Final
+            const divPrecioFinal = document.createElement('div');
+            divPrecioFinal.innerHTML = `<strong>Precio Final:</strong> $${usuario.precioFinal.toLocaleString()}`;
+            item.appendChild(divPrecioFinal);
+  
+            lista.appendChild(item);
+          });
+        }
+      })
+      .catch(error => {
+        console.error('Error al cargar los usuarios:', error);
+        document.getElementById('listaUsuarios').innerHTML = '<li>Error al cargar los usuarios.</li>';
+      });
+    });
+  </script>
+</body>
+</html>

@@ -10,13 +10,13 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Conectado a MongoDB'))
   .catch(err => console.error('Error al conectar a MongoDB', err));
 
-// Definición del modelo Usuario con Mongoose
 const usuarioSchema = new mongoose.Schema({
   celular: String,
   direccion: String,
   ciudad: String,
   cartData: String,
-  precioFinal: Number
+  precioFinal: Number,
+  cedula: String // Añadir este campo si no está en el esquema
 });
 const Usuario = mongoose.model('Usuario', usuarioSchema);
 

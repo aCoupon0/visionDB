@@ -29,7 +29,7 @@ app.use('/css', express.static(path.join(__dirname, '/css')));
 
 // Ruta para la página principal de admin
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'admin.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // API para obtener todos los usuarios
